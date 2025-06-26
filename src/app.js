@@ -1,11 +1,15 @@
 const path = require('node:path');
 const express = require('express');
-const session = require('express-session');
 const indexRouter = require('./routes/indexRouter');
 //session handling
-const expressSession = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
+const session = require('express-session');
+const { passport } = require('./passport/passport')
+const LocalStrategy = require('passport-local').Strategy
+
+
+
 
 require('dotenv').config();
 
@@ -21,13 +25,10 @@ app.use(express.static(assetsPath));
 
 //session handling
 app.use(
-    expressSession({
-        cookie: {
-            maxAge: 7 * 24 * 60 * 60 * 1000 
-        },
+    session({
         secret: process.env.SESSION_SECRET,
-        resave: true,
-        saveUnitialized: true,
+        resave: false,
+        saveUninitialized: false,
         store: new PrismaSessionStore(
             new PrismaClient(),
             {
@@ -36,9 +37,10 @@ app.use(
                 dbRecordIdFunction: undefined,
             },
         ),
+        cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }, //7 days
     }),
 );
-
+app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use('/', indexRouter);
 
