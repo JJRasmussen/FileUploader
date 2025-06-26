@@ -6,4 +6,8 @@ indexRouter.get('/', async(req, res) => {
     res.render('index')
 })
 
+indexRouter.post('/sign-up',
+    newUserSchema,
+    ()
+)
 module.exports = indexRouter;

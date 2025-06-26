@@ -1,0 +1,42 @@
+<form action="sign-up" method="POST">
+    <legend>CREATE AN ACCOUNT</legend>
+    <div>
+        <input 
+        id="username"
+        name="username"
+        type="text"
+        placeholder="JaneDoe123"
+        minlength="3"
+        maxlength="22"
+        required
+        />
+        <label for="username">Username</label>
+    </div>
+    <div>
+        <input 
+        id="password"
+        name="password"
+        type="password"
+        placeholder=""
+        minlength="6"
+        maxlength="50"
+        required
+        />
+        <label for="password">Password</label>
+    </div>
+    <div>
+        <input 
+        id="passwordConfirmation"
+        name="passwordConfirmation"
+        type="password"
+        placeholder=""
+        minlength="6"
+        maxlength="50"
+        required
+        />
+        <label for="passwordConfirmation">Confirm Password</label>
+    </div>
+    <button type="submit">
+        Sign Up
+    </button>
+</form>
