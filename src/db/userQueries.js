@@ -1,10 +1,23 @@
 import Prisma from './client.js';
 
-async function findUserByUsername(username){
+async function findUserFromUsername(username){
     try{
         return await Prisma.user.findUnique({ 
             where: {
                 username: username,
+            },
+        });     
+    } catch (error) {
+        console.error("error querying user:", error)
+        throw error;
+    } 
+};
+
+async function findUserFromId(id){
+    try{
+        return await Prisma.user.findUnique({ 
+            where: {
+                id: id,
             },
         });     
     } catch (error) {
@@ -28,6 +41,7 @@ async function createUserInDatabase(username, hashedPassword){
 };
 
 export default {
-    findUserByUsername,
-    createUserInDatabase
+    findUserFromUsername,
+    createUserInDatabase,
+    findUserFromId,
 }

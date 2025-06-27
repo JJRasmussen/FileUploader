@@ -6,8 +6,29 @@
     <title>FileUploader</title>
 </head>
 <body>
-    <p>greetings children</p>
-    <a href="/sign-up">Sign Up here</a>
+    <p>greetings <%= user.username %>!</p>
+
+    <form action="/log-in" method="POST" id="loginForm">
+        <Legend>Login</Legend>
+        <div>
+            <div class="inputContainer">
+                <input type="text" name="username" id="username" placeholder="">
+                <label for="username">Username</label>
+            </div> 
+            <div class="inputContainer">
+                <input type="password" name="password" id="password" placeholder="">
+                <label for="password">Password</label>
+            </div>
+        </div>
+        <% if (invalidLogin == true){%>
+        <p> Invalid username or password </p>
+        <% } %>
+        <button type="submit">Log in</button>
+        <div class="signupContainer">
+            <p>Don't have an account yet?</p>
+            <a class="secondaryButton" href="/sign-up">Sign up</a>
+        </div>
+    </form>
     <% if (message) { %>
     <h1><%= message %>!</h1>
     <% } %>

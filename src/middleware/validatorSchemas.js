@@ -12,7 +12,7 @@ const newUserSchema = [
         .bail()
         .custom(async value => {
             try{
-                const user = await userDb.findUserByUsername(value);
+                const user = await userDb.findUserFromUsername(value);
                 if (user) {
                     return false;
                 }

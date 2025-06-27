@@ -1,15 +1,25 @@
 import { Router } from 'express';
 import { validationResult } from 'express-validator';
+import passport from '../middleware/passport.js'
 import newUserSchema from '../middleware/validatorSchemas.js';
 import { createNewUser } from '../controllers/userController.js';
 const indexRouter = Router();
 
 //public routes
 indexRouter.get('/', async(req, res) => {
+    let userCreated = (req.query.userCreated === 'true');
+    let invalidLogin = (req.query.invalidLogin === 'true');
     res.render('index', {
-            message: false,
-        });
+        user: req.user,
+        message: false,
+        userCreated: userCreated,
+        invalidLogin: invalidLogin,
+    });
 });
+indexRouter.post('/log-in', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/?invalidLogin=true'
+}));
 
 indexRouter.get('/sign-up', async(req, res) => {
     res.render('sign-up');
@@ -28,12 +38,12 @@ indexRouter.post('/sign-up',
         };
         try{
             await createNewUser(req, res, next);
-            res.status(201).render('index', {
-                message: "user created"
-            })
+            res.status(201).redirect('/?userCreated=true')
         } catch(error) {
             next(error);
         }
     }
 );
+
+
 export default indexRouter;
