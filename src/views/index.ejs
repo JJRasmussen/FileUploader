@@ -6,8 +6,12 @@
     <title>FileUploader</title>
 </head>
 <body>
-    <p>greetings <%= user.username %>!</p>
-
+    <% if (user) { %>
+        <h1>Greetings <%= user.username %>!</h1>
+        <a href="log-out">logout</a>
+    <% } else { %>
+    <p>greetings </p>
+    <% } %>
     <form action="/log-in" method="POST" id="loginForm">
         <Legend>Login</Legend>
         <div>

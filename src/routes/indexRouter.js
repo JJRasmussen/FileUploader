@@ -46,6 +46,15 @@ indexRouter.post('/sign-up',
 );
 
 //user routes
+indexRouter.get('/log-out', (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        };
+        res.redirect('/');
+    });
+});
+
 indexRouter.get('/user-route', authorizations.isUser, (req, res, next) => {
     res.render('user-page', {
         user: req.user,
