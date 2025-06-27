@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import { validationResult } from 'express-validator';
 import passport from '../middleware/passport.js'
+import authorizations from '../middleware/authorization.js'
 import newUserSchema from '../middleware/validatorSchemas.js';
 import { createNewUser } from '../controllers/userController.js';
+
 const indexRouter = Router();
 
 //public routes
@@ -20,11 +22,9 @@ indexRouter.post('/log-in', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/?invalidLogin=true'
 }));
-
 indexRouter.get('/sign-up', async(req, res) => {
     res.render('sign-up');
 });
-
 indexRouter.post('/sign-up',
     newUserSchema,
     async (req, res, next) => {
@@ -45,5 +45,12 @@ indexRouter.post('/sign-up',
     }
 );
 
+//user routes
+indexRouter.get('/user-route', authorizations.isUser, (req, res, next) => {
+    res.render('user-page', {
+        user: req.user,
+        message: null,
+    });
+});
 
 export default indexRouter;
