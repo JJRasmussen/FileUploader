@@ -1,6 +1,6 @@
-const passport = require('passport');
-const bcrypt = require('bcryptjs');
-const LocalStrategy = require('passport-local').Strategy;
+import passport from 'passport';
+import bcrypt from 'bcryptjs';
+import { Strategy as LocalStrategy } from 'passport-local';
 
 passport.use(
     new LocalStrategy(async (username, password, done) => {
@@ -33,6 +33,4 @@ passport.deserializeUser(async (id, done) => {
     }
 });
 
-module.exports = {
-    passport,
-}
+export default passport;

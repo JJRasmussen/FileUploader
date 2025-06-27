@@ -19,3 +19,16 @@ model Session {
   data      String   
   expiresAt DateTime
 }
+
+model User {
+  id String @id @default(uuid())
+  username String @unique
+  hashedPassword String
+  createdAt DateTime @default(now())
+  role Role @default(BASIC)
+}
+
+enum Role {
+  BASIC
+  ADMIN
+}

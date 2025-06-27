@@ -1,19 +1,18 @@
-const path = require('node:path');
-const express = require('express');
-const indexRouter = require('./routes/indexRouter');
-//session handling
-const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
-const { PrismaClient } = require('@prisma/client');
-const session = require('express-session');
-const { passport } = require('./passport/passport')
-const LocalStrategy = require('passport-local').Strategy
-
-
-
-
-require('dotenv').config();
-
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import express from 'express';
+import indexRouter from './routes/indexRouter.js';
+// session handling
+import { PrismaSessionStore } from '@quixo3/prisma-session-store';
+import { PrismaClient } from '@prisma/client';
+import session from 'express-session';
+import passport from './middleware/passport.js';
+import { Strategy as LocalStrategy } from 'passport-local'
+import 'dotenv/config';
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 //setup view engine
 app.set('views', path.join(__dirname, 'views'));

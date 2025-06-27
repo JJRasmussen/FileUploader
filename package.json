@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A personal storage service created as part of The Odin Project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "node --watch src/app.js"
   },
