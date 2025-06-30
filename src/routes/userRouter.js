@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import authorizations from '../middleware/authorization.js'
-import upload from '../middleware/multer.js'
+import upload from '../middleware/fileUpload/multer.js'
+import fileValidation from '../middleware/fileUpload/fileValidation.js';
 
 const userRouter = Router();
 
@@ -16,7 +17,7 @@ userRouter.get('/log-out', (req, res, next) => {
     });
 });
 
-userRouter.post('/upload', upload.single('file'), (req, res) => {
+userRouter.post('/upload', upload.single('file'), fileValidation, (req, res) => {
     res.send('upload successfully!')
 })
 
