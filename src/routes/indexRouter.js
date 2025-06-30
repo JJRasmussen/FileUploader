@@ -1,13 +1,9 @@
 import { Router } from 'express';
 import { validationResult } from 'express-validator';
 import passport from '../middleware/passport.js'
-import authorizations from '../middleware/authorization.js'
 import newUserSchema from '../middleware/validatorSchemas.js';
 import { createNewUser } from '../controllers/userController.js';
-
-import multer from 'multer';
-const upload = multer({ dest: 'uploads/' });
-
+import userRouter from './userRouter.js'
 
 const indexRouter = Router();
 
@@ -49,27 +45,6 @@ indexRouter.post('/sign-up',
     }
 );
 
-//user routes
-indexRouter.get('/log-out', (req, res, next) => {
-    req.logout((err) => {
-        if (err) {
-            return next(err);
-        };
-        res.redirect('/');
-    });
-});
-
-indexRouter.post('/api/upload', upload.single('file'), (req, res) => {
-    res.send('upload successfully!')
-})
-
-
-
-indexRouter.get('/user-route', authorizations.isUser, (req, res, next) => {
-    res.render('user-page', {
-        user: req.user,
-        message: null,
-    });
-});
+indexRouter.use('/', userRouter);
 
 export default indexRouter;

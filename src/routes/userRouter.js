@@ -1,0 +1,30 @@
+import { Router } from 'express';
+import authorizations from '../middleware/authorization.js'
+import upload from '../middleware/multer.js'
+
+const userRouter = Router();
+
+//router wide middleware
+userRouter.use(authorizations.isUser);
+
+userRouter.get('/log-out', (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        };
+        res.redirect('/');
+    });
+});
+
+userRouter.post('/api/upload', upload.single('file'), (req, res) => {
+    res.send('upload successfully!')
+})
+
+userRouter.get('/user-route', (req, res, next) => {
+    res.render('user-page', {
+        user: req.user,
+        message: null,
+    });
+});
+
+export default userRouter;
