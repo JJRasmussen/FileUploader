@@ -8,33 +8,14 @@
 <body>
     <% if (user) { %>
         <h1>Greetings <%= user.username %>!</h1>
+        <%- include('indexVariants/fileUploadForm') %>
         <a href="log-out">logout</a>
     <% } else { %>
-    <p>greetings </p>
+        <p>greetings </p>
+        <%- include('indexVariants/loginForm') %>
     <% } %>
-    <form action="/log-in" method="POST" id="loginForm">
-        <Legend>Login</Legend>
-        <div>
-            <div class="inputContainer">
-                <input type="text" name="username" id="username" placeholder="">
-                <label for="username">Username</label>
-            </div> 
-            <div class="inputContainer">
-                <input type="password" name="password" id="password" placeholder="">
-                <label for="password">Password</label>
-            </div>
-        </div>
-        <% if (invalidLogin == true){%>
-        <p> Invalid username or password </p>
-        <% } %>
-        <button type="submit">Log in</button>
-        <div class="signupContainer">
-            <p>Don't have an account yet?</p>
-            <a class="secondaryButton" href="/sign-up">Sign up</a>
-        </div>
-    </form>
     <% if (message) { %>
-    <h1><%= message %>!</h1>
+        <h1><%= message %>!</h1>
     <% } %>
 </body>
 </html>

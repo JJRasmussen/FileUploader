@@ -5,6 +5,10 @@ import authorizations from '../middleware/authorization.js'
 import newUserSchema from '../middleware/validatorSchemas.js';
 import { createNewUser } from '../controllers/userController.js';
 
+import multer from 'multer';
+const upload = multer({ dest: 'uploads/' });
+
+
 const indexRouter = Router();
 
 //public routes
@@ -54,6 +58,12 @@ indexRouter.get('/log-out', (req, res, next) => {
         res.redirect('/');
     });
 });
+
+indexRouter.post('/api/upload', upload.single('file'), (req, res) => {
+    res.send('upload successfully!')
+})
+
+
 
 indexRouter.get('/user-route', authorizations.isUser, (req, res, next) => {
     res.render('user-page', {
