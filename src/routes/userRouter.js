@@ -16,7 +16,7 @@ userRouter.get('/log-out', (req, res, next) => {
     });
 });
 
-userRouter.post('/api/upload', upload.single('file'), (req, res) => {
+userRouter.post('/upload', upload.single('file'), (req, res) => {
     res.send('upload successfully!')
 })
 
